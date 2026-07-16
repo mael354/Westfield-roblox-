@@ -138,29 +138,34 @@
             animation: fadeIn 0.3s ease;
         }
 
-        /* Section Accueil */
+        /* Section Introduction / Accueil */
         .hero {
-            background: linear-gradient(rgba(13, 15, 20, 0.75), rgba(13, 15, 20, 0.95)), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
-            height: 60vh;
+            background: linear-gradient(rgba(13, 15, 20, 0.85), rgba(13, 15, 20, 0.95)), url('https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            height: 70vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 0 1rem;
+            padding: 0 1.5rem;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 4rem;
             margin-bottom: 1.5rem;
             text-transform: uppercase;
-            text-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+            letter-spacing: 3px;
+            text-shadow: 0 4px 20px rgba(255, 71, 87, 0.5);
+        }
+
+        .hero h1 span {
+            color: var(--accent-color);
         }
 
         .hero p {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             margin-bottom: 2.5rem;
-            max-width: 700px;
+            max-width: 800px;
             color: var(--text-muted);
         }
 
@@ -390,7 +395,7 @@
             box-shadow: 0 6px 20px rgba(46, 213, 115, 0.6);
         }
 
-        /* SECTION CRÉDITS (Style exact de ton image) */
+        /* SECTION CRÉDITS (Style ultra fidèle à l'image) */
         .grid-credits {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -400,12 +405,17 @@
         }
 
         .member-card {
-            background: var(--card-bg);
+            background: #111319; /* Fond sombre des cartes */
             padding: 3rem 2rem;
             border-radius: 16px;
             text-align: center;
-            border: 1px solid #232733;
+            border: 1px solid #1a1e26;
             transition: all 0.3s ease;
+        }
+
+        /* MrEduardo (Carte du milieu avec bordure rouge néon constante) */
+        .member-card.featured {
+            border-color: var(--accent-color);
         }
 
         .member-card:hover {
@@ -414,23 +424,24 @@
             box-shadow: 0 10px 25px rgba(255, 71, 87, 0.15);
         }
 
-        /* Style spécifique pour la carte du milieu survolée (MrEduardo) */
-        .member-card.featured {
-            border-color: var(--accent-color);
-        }
-
-        .avatar {
+        /* Rond néon rouge autour de l'image de profil */
+        .avatar-circle {
             width: 110px;
             height: 110px;
-            background-color: transparent;
             border-radius: 50%;
             margin: 0 auto 2rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
             border: 2px solid var(--accent-color);
-            box-shadow: 0 0 15px rgba(255, 71, 87, 0.4);
+            box-shadow: 0 0 15px rgba(255, 71, 87, 0.6);
+            background-color: transparent;
+        }
+
+        .avatar-img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
         }
 
         .member-card h4 {
@@ -438,6 +449,7 @@
             margin-bottom: 0.8rem;
             font-weight: bold;
             letter-spacing: 0.5px;
+            color: #ffffff;
         }
 
         .member-card p {
@@ -494,9 +506,9 @@
     </header>
 
     <section id="accueil" class="hero animate">
-        <h1 id="hero-title" data-edit="text">Westfield Studios</h1>
-        <p id="hero-desc" data-edit="text">Explorez nos créations immersives et plongez dans nos différents espaces conçus avec style.</p>
-        <a href="#jeux" class="btn creator-btn" style="background-color: var(--accent-color); text-decoration: none; padding: 0.8rem 2rem; box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);" id="hero-btn" data-edit="text">Découvrir nos jeux</a>
+        <h1 id="hero-title" data-edit="text">Westfield <span>Studios</span></h1>
+        <p id="hero-desc" data-edit="text">Bienvenue dans notre hub de développement de pointe. Nous créons des environnements d'une fidélité exceptionnelle pour vous offrir des expériences de jeu inoubliables. Explorez nos projets ci-dessous et accédez instantanément à nos univers !</p>
+        <a href="#jeux" class="creator-btn" style="background-color: var(--accent-color); text-decoration: none; padding: 1rem 2.5rem; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);" id="hero-btn" data-edit="text">🚀 Découvrir l'univers</a>
     </section>
 
     <div class="transition-divider"></div>
@@ -513,7 +525,7 @@
                 <input type="text" class="game-link-input" id="link-card-1" placeholder="Lien Roblox (ex: https://roblox.com/...)" onclick="event.stopPropagation()">
                 <div class="game-content">
                     <h3 id="title-card-1" data-edit="text">Le Parking Souterrain</h3>
-                    <p id="desc-card-1" data-edit="text">Clique ici pour en savoir plus sur notre parking souterrain ultra-réaliste, idéal pour vos sessions de RP.</p>
+                    <p id="desc-card-1" data-edit="text">Clique ici pour voir en détail notre parking sous-terrain sécurisé et ultra-réaliste pour tous tes véhicules.</p>
                 </div>
             </div>
 
@@ -524,8 +536,8 @@
                 <input type="text" class="image-url-input" id="url-card-2" placeholder="Lien image" value="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80" oninput="changeCardImage(2, this.value)" onclick="event.stopPropagation()">
                 <input type="text" class="game-link-input" id="link-card-2" placeholder="Lien Roblox (ex: https://roblox.com/...)" onclick="event.stopPropagation()">
                 <div class="game-content">
-                    <h3 id="title-card-2" data-edit="text">L'Entrée du Magasin</h3>
-                    <p id="desc-card-2" data-edit="text">Clique ici pour voir les détails de notre somptueuse entrée principale de Westfield.</p>
+                    <h3 id="title-card-2" data-edit="text">L'Entrée Principale</h3>
+                    <p id="desc-card-2" data-edit="text">Clique ici pour en savoir plus sur l'entrée monumentale et l'architecture moderne de Westfield.</p>
                 </div>
             </div>
 
@@ -537,7 +549,7 @@
                 <input type="text" class="game-link-input" id="link-card-3" placeholder="Lien Roblox (ex: https://roblox.com/...)" onclick="event.stopPropagation()">
                 <div class="game-content">
                     <h3 id="title-card-3" data-edit="text">Le Bas (Espace Shopping)</h3>
-                    <p id="desc-card-3" data-edit="text">Explorez les rayons remplis de vêtements stylés au rez-de-chaussée de Westfield.</p>
+                    <p id="desc-card-3" data-edit="text">Découvre les collections exclusives de vêtements ainsi que l'aménagement intérieur de notre rez-de-chaussée.</p>
                 </div>
             </div>
 
@@ -566,19 +578,41 @@
         <div class="grid-credits">
             
             <div class="member-card">
-                <div class="avatar" data-edit="text">👑</div>
+                <div class="avatar-circle">
+                    <svg class="avatar-img" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 70 L25 35 L40 55 L50 25 L60 55 L75 35 L85 70 Z" fill="#FBC02D" stroke="#FFA000" stroke-width="3"/>
+                        <rect x="15" y="70" width="70" height="10" rx="3" fill="#D32F2F" />
+                        <circle cx="15" cy="70" r="4" fill="#1976D2" />
+                        <circle cx="50" cy="70" r="4" fill="#388E3C" />
+                        <circle cx="85" cy="70" r="4" fill="#1976D2" />
+                        <circle cx="25" cy="35" r="5" fill="#E040FB" />
+                        <circle cx="50" cy="25" r="5" fill="#00E5FF" />
+                        <circle cx="75" cy="35" r="5" fill="#E040FB" />
+                    </svg>
+                </div>
                 <h4 data-edit="text">mael120410</h4>
                 <p data-edit="text">Créateur / Fondateur</p>
             </div>
 
             <div class="member-card featured">
-                <div class="avatar" data-edit="text">💻</div>
+                <div class="avatar-circle">
+                    <svg class="avatar-img" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="25" y="30" width="50" height="32" rx="4" fill="#90CAF9" stroke="#1E88E5" stroke-width="3"/>
+                        <rect x="20" y="62" width="60" height="8" rx="2" fill="#B0BEC5"/>
+                        <line x1="28" y1="36" x2="72" y2="36" stroke="#ffffff" stroke-width="2"/>
+                    </svg>
+                </div>
                 <h4 data-edit="text">MrEduardo</h4>
                 <p data-edit="text">Développeur Principal</p>
             </div>
 
             <div class="member-card">
-                <div class="avatar" data-edit="text">🔍</div>
+                <div class="avatar-circle">
+                    <svg class="avatar-img" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="45" cy="45" r="20" stroke="#80DEEA" stroke-width="5" fill="rgba(128, 222, 234, 0.2)"/>
+                        <path d="M59 59 L80 80" stroke="#AB47BC" stroke-width="8" stroke-linecap="round"/>
+                    </svg>
+                </div>
                 <h4 data-edit="text">Bientôt</h4>
                 <p data-edit="text">Testeur Officiel</p>
             </div>
@@ -595,7 +629,7 @@
     <script>
         let isEditMode = false;
 
-        // Charger tout le contenu sauvegardé
+        // Charger le contenu sauvegardé
         document.addEventListener("DOMContentLoaded", () => {
             const savedTexts = localStorage.getItem('westfield_store_content');
             if (savedTexts) {
@@ -637,9 +671,8 @@
             }
         }
 
-        // FONCTIONS DU MODAL / TRANSITION DE JEU
+        // Ouvrir le modal du jeu
         function openGameModal(cardNumber, event) {
-            // Ne pas ouvrir la fenêtre si on est en train de modifier le site
             if (isEditMode) return;
 
             const title = document.getElementById(`title-card-${cardNumber}`).innerText;
@@ -652,16 +685,16 @@
             // Récupère le lien personnalisé Roblox
             let gameLink = document.getElementById(`link-card-${cardNumber}`).value;
             if (!gameLink || gameLink.trim() === "") {
-                gameLink = "https://www.roblox.com"; // Lien par défaut
+                gameLink = "https://www.roblox.com";
             }
 
-            // Remplit le Modal
+            // Remplir le Modal
             document.getElementById('modal-title').innerText = title;
             document.getElementById('modal-desc').innerText = desc;
             document.getElementById('modal-img').style.backgroundImage = `url('${imgUrl}')`;
             document.getElementById('modal-join-btn').href = gameLink;
 
-            // Ouvre le modal avec animation
+            // Afficher le modal
             document.getElementById('game-modal').classList.add('active');
         }
 
@@ -669,7 +702,7 @@
             document.getElementById('game-modal').classList.remove('active');
         }
 
-        // Activer / Désactiver le Mode Créateur
+        // Mode Créateur
         function toggleCreatorMode() {
             isEditMode = !isEditMode;
             const body = document.body;
