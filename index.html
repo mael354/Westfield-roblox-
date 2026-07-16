@@ -3,31 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Westfield | Studio de Jeux Roblox</title>
+    <title>Westfield | Magasin & Style</title>
     <style>
+        /* Variables & Thème */
+        :root {
+            --bg-color: #0d0f14;
+            --card-bg: #151821;
+            --accent-color: #ff4757;
+            --accent-hover: #ff6b81;
+            --text-color: #f5f6fa;
+            --text-muted: #a4b0be;
+            --success-color: #2ed573;
+        }
+
         /* Styles Généraux */
         * {
             margin: 0;
             padding: 0;
-            box-style: border-box;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
         }
 
         body {
-            background-color: #0f1115;
-            color: #f5f6fa;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animations d'entrée */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate {
+            animation: fadeIn 0.8s ease forwards;
         }
 
         /* Barre de Navigation */
         header {
-            background-color: #161a23;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            background-color: rgba(21, 24, 33, 0.95);
+            backdrop-filter: blur(10px);
             position: sticky;
             top: 0;
             z-index: 1000;
-            border-bottom: 2px solid #ff4757;
+            border-bottom: 2px solid var(--accent-color);
         }
 
         .navbar {
@@ -42,65 +64,111 @@
         .logo {
             font-size: 1.8rem;
             font-weight: bold;
-            color: #fff;
             text-transform: uppercase;
             letter-spacing: 2px;
         }
 
         .logo span {
-            color: #ff4757;
+            color: var(--accent-color);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
         }
 
         .nav-links {
             list-style: none;
             display: flex;
-            gap: 2rem;
+            gap: 1.5rem;
         }
 
         .nav-links a {
             text-decoration: none;
-            color: #a4b0be;
+            color: var(--text-muted);
             font-weight: 500;
-            transition: color 0.3s;
+            transition: color 0.3s, transform 0.3s;
         }
 
         .nav-links a:hover {
-            color: #ff4757;
+            color: var(--accent-color);
+            transform: scale(1.05);
+        }
+
+        /* Bouton Spécial Créateur */
+        .creator-btn {
+            background-color: #3f37c9;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(63, 55, 201, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .creator-btn:hover {
+            background-color: #4895ef;
+            transform: translateY(-2px);
+        }
+
+        .creator-btn.active {
+            background-color: var(--success-color);
+            box-shadow: 0 4px 15px rgba(46, 213, 115, 0.4);
+        }
+
+        /* Notification d'édition */
+        #edit-toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--success-color);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            display: none;
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
         }
 
         /* Section Accueil (Hero) */
         .hero {
-            background: linear-gradient(rgba(15, 17, 21, 0.8), rgba(15, 17, 21, 0.95)), url('https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
-            height: 75vh;
+            background: linear-gradient(rgba(13, 15, 20, 0.75), rgba(13, 15, 20, 0.95)), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            height: 80vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            color: #fff;
             padding: 0 1rem;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
             text-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
         }
 
         .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            max-width: 650px;
-            color: #ced6e0;
+            font-size: 1.4rem;
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+            color: var(--text-muted);
         }
 
         .btn {
             display: inline-block;
-            background-color: #ff4757;
+            background-color: var(--accent-color);
             color: #fff;
-            padding: 0.8rem 2.5rem;
+            padding: 0.9rem 2.8rem;
             text-decoration: none;
             border-radius: 5px;
             font-weight: bold;
@@ -110,157 +178,179 @@
         }
 
         .btn:hover {
-            background-color: #ff6b81;
-            transform: translateY(-2px);
+            background-color: var(--accent-hover);
+            transform: translateY(-3px);
             box-shadow: 0 6px 20px rgba(255, 71, 87, 0.6);
         }
 
-        /* Container de section */
+        /* Sections communes */
         .container {
             max-width: 1200px;
-            margin: 5rem auto;
+            margin: 6rem auto;
             padding: 0 5%;
         }
 
         .section-title {
             text-align: center;
-            margin-bottom: 3rem;
-            font-size: 2.2rem;
+            margin-bottom: 4rem;
+            font-size: 2.5rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
         }
 
         .section-title span {
-            color: #ff4757;
+            color: var(--accent-color);
         }
 
-        /* Section Nos Jeux */
+        /* Section Collection / Articles du Magasin */
         .grid-jeux {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 3rem;
         }
 
         .game-card {
-            background: #1e222b;
-            border-radius: 12px;
+            background: var(--card-bg);
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid #2f3542;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s;
+            border: 1px solid #232733;
         }
 
         .game-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(255, 71, 87, 0.2);
-            border-color: #ff4757;
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(255, 71, 87, 0.25);
+            border-color: var(--accent-color);
         }
 
         .game-img {
-            height: 220px;
-            background-color: #2f3542;
+            height: 240px;
             background-size: cover;
             background-position: center;
+            position: relative;
+            background-color: #1e222b;
+        }
+
+        .game-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
         }
 
         .game-content {
-            padding: 1.8rem;
+            padding: 2rem;
         }
 
         .game-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.8rem;
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
             color: #fff;
         }
 
         .game-content p {
-            color: #a4b0be;
-            font-size: 0.95rem;
-            margin-bottom: 1.5rem;
-            height: 60px;
-            overflow: hidden;
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            min-height: 72px;
         }
 
         .btn-play {
             display: inline-block;
-            background-color: #2ed573;
+            background-color: var(--success-color);
             color: #fff;
-            padding: 0.6rem 1.5rem;
+            padding: 0.7rem 1.8rem;
             text-decoration: none;
-            border-radius: 4px;
+            border-radius: 6px;
             font-weight: bold;
-            font-size: 0.9rem;
-            transition: background 0.2s;
+            transition: all 0.2s;
         }
 
         .btn-play:hover {
             background-color: #26af5f;
+            transform: scale(1.05);
         }
 
-        /* Section Crédits / Équipe */
+        /* Section Équipe / Crédits */
         .grid-credits {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 2rem;
-            justify-content: center;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2.5rem;
         }
 
         .member-card {
-            background: #161a23;
-            padding: 2rem 1.5rem;
-            border-radius: 10px;
+            background: var(--card-bg);
+            padding: 3rem 2rem;
+            border-radius: 16px;
             text-align: center;
-            border: 1px solid #2f3542;
-            transition: border-color 0.3s;
+            border: 1px solid #232733;
+            transition: all 0.3s ease;
         }
 
         .member-card:hover {
-            border-color: #ff4757;
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 25px rgba(255, 71, 87, 0.1);
         }
 
         .avatar {
-            width: 100px;
-            height: 100px;
-            background-color: #2f3542;
+            width: 110px;
+            height: 110px;
+            background-color: #1e222b;
             border-radius: 50%;
-            margin: 0 auto 1.5rem;
+            margin: 0 auto 2rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.5rem;
-            color: #ff4757;
-            border: 3px solid #ff4757;
+            font-size: 3rem;
+            border: 3px solid var(--accent-color);
+            box-shadow: 0 0 15px rgba(255, 71, 87, 0.3);
         }
 
         .member-card h4 {
-            font-size: 1.2rem;
-            margin-bottom: 0.3rem;
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
         }
 
         .member-card p {
-            color: #ff4757;
+            color: var(--accent-color);
             font-weight: bold;
             font-size: 0.9rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+        }
+
+        /* Mode d'édition visuel */
+        [contenteditable="true"] {
+            outline: 2px dashed #3f37c9;
+            padding: 2px;
+            background-color: rgba(63, 55, 201, 0.15);
+            border-radius: 4px;
         }
 
         /* Pied de page */
         footer {
-            background-color: #0b0c10;
-            color: #a4b0be;
+            background-color: #08090d;
+            color: var(--text-muted);
             text-align: center;
-            padding: 3rem 1rem;
-            margin-top: 5rem;
-            border-top: 1px solid #1e222b;
+            padding: 4rem 1rem;
+            margin-top: 8rem;
+            border-top: 1px solid #151821;
         }
 
         footer p {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
         }
 
         footer span {
-            color: #ff4757;
+            color: var(--accent-color);
         }
     </style>
 </head>
@@ -268,75 +358,137 @@
 
     <header>
         <nav class="navbar">
-            <div class="logo">West<span>field</span></div>
-            <ul class="nav-links">
-                <li><a href="#accueil">Accueil</a></li>
-                <li><a href="#jeux">Nos Jeux</a></li>
-                <li><a href="#credits">Crédits</a></li>
-            </ul>
+            <div class="logo" id="site-logo" data-edit="text">West<span>field</span></div>
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="#accueil">Accueil</a></li>
+                    <li><a href="#collection">Le Magasin</a></li>
+                    <li><a href="#credits">Crédits</a></li>
+                </ul>
+                <button class="creator-btn" onclick="toggleCreatorMode()">
+                    <span id="creator-icon">🛠️</span> <span id="creator-text">Mode Créateur</span>
+                </button>
+            </div>
         </nav>
     </header>
 
-    <section id="accueil" class="hero">
-        <h1>Créateurs d'univers Roblox</h1>
-        <p>Nous concevons des expériences uniques, immersives et amusantes pour la communauté Roblox. Plongez dans nos créations dès aujourd'hui !</p>
-        <a href="#jeux" class="btn">Voir les Jeux</a>
+    <section id="accueil" class="hero animate">
+        <h1 id="hero-title" data-edit="text">Découvrez Westfield Store</h1>
+        <p id="hero-desc" data-edit="text">Votre destination ultime pour des styles uniques et des collections branchées. Explorez nos nouveautés dès aujourd'hui !</p>
+        <a href="#collection" class="btn" id="hero-btn" data-edit="text">Voir les Collections</a>
     </section>
 
-    <section id="jeux" class="container">
-        <h2 class="section-title">Nos <span>Jeux</span></h2>
+    <section id="collection" class="container animate">
+        <h2 class="section-title">Le <span>Magasin</span></h2>
         <div class="grid-jeux">
             
             <div class="game-card">
-                <div class="game-img" style="background-image: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80');"></div>
+                <div class="game-img" style="background-image: url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80');">
+                    <span class="game-badge" data-edit="text">Populaire</span>
+                </div>
                 <div class="game-content">
-                    <h3>Westfield RP</h3>
-                    <p>Incarnez le rôle de votre choix dans une ville ultra réaliste. Conduisez, travaillez et rencontrez des amis !</p>
-                    <a href="https://www.roblox.com" target="_blank" class="btn-play">Rejoindre sur Roblox</a>
+                    <h3 data-edit="text">Collection Streetwear</h3>
+                    <p data-edit="text">Des pièces modernes et confortables spécialement sélectionnées pour un style urbain affirmé au quotidien.</p>
+                    <a href="#collection" class="btn-play">Voir l'article</a>
                 </div>
             </div>
 
             <div class="game-card">
-                <div class="game-img" style="background-image: url('https://images.unsplash.com/photo-1552820728-8b83bb6b773f?auto=format&fit=crop&w=600&q=80');"></div>
+                <div class="game-img" style="background-image: url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=600&q=80');">
+                    <span class="game-badge" data-edit="text">Nouveauté</span>
+                </div>
                 <div class="game-content">
-                    <h3>Survival Challenge</h3>
-                    <p>Un jeu de survie intense où l'esprit d'équipe et vos réflexes seront vos seules armes pour survivre.</p>
-                    <a href="https://www.roblox.com" target="_blank" class="btn-play">Rejoindre sur Roblox</a>
+                    <h3 data-edit="text">Gamme d'Été</h3>
+                    <p data-edit="text">Des tissus légers et des couleurs vibrantes pour profiter pleinement du soleil tout en restant élégant.</p>
+                    <a href="#collection" class="btn-play">Voir l'article</a>
                 </div>
             </div>
 
         </div>
     </section>
 
-    <section id="credits" class="container">
+    <section id="credits" class="container animate">
         <h2 class="section-title">Les <span>Crédits</span></h2>
         <div class="grid-credits">
             
             <div class="member-card">
-                <div class="avatar">👑</div>
-                <h4>mael354</h4>
-                <p>Fondateur / Dev Principal</p>
+                <div class="avatar" data-edit="text">👑</div>
+                <h4 data-edit="text">mael120410</h4>
+                <p data-edit="text">Créateur / Fondateur</p>
             </div>
 
             <div class="member-card">
-                <div class="avatar">🛠️</div>
-                <h4>Alex</h4>
-                <p>Builder / Modeleur 3D</p>
+                <div class="avatar" data-edit="text">💻</div>
+                <h4 data-edit="text">MrEduardo</h4>
+                <p data-edit="text">Développeur Principal</p>
             </div>
 
             <div class="member-card">
-                <div class="avatar">🎨</div>
-                <h4>Sarah</h4>
-                <p>Graphiste / UI Designer</p>
+                <div class="avatar" data-edit="text">🔍</div>
+                <h4 data-edit="text">Bientôt</h4>
+                <p data-edit="text">Testeur Officiel</p>
             </div>
 
         </div>
     </section>
 
+    <div id="edit-toast">Modifications enregistrées ! 👍</div>
+
     <footer>
-        <p>&copy; 2026 <span>Westfield Roblox</span>. Tous droits réservés.</p>
-        <p style="font-size: 0.8rem; color: #57606f;">Ce site n'est pas affilié directement à Roblox Corporation.</p>
+        <p>&copy; 2026 <span>Westfield Store</span>. Tous droits réservés.</p>
     </footer>
 
+    <script>
+        let isEditMode = false;
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const savedData = localStorage.getItem('westfield_store_content');
+            if (savedData) {
+                const contents = JSON.parse(savedData);
+                const editableElements = document.querySelectorAll('[data-edit="text"]');
+                editableElements.forEach((el, index) => {
+                    if (contents[index] !== undefined) {
+                        el.innerHTML = contents[index];
+                    }
+                });
+            }
+        });
+
+        function toggleCreatorMode() {
+            isEditMode = !isEditMode;
+            const btn = document.querySelector('.creator-btn');
+            const btnText = document.getElementById('creator-text');
+            const btnIcon = document.getElementById('creator-icon');
+            const editableElements = document.querySelectorAll('[data-edit="text"]');
+            const toast = document.getElementById('edit-toast');
+
+            if (isEditMode) {
+                btn.classList.add('active');
+                btnText.innerText = "Sauvegarder";
+                btnIcon.innerText = "💾";
+                
+                editableElements.forEach(el => {
+                    el.setAttribute('contenteditable', 'true');
+                });
+            } else {
+                btn.classList.remove('active');
+                btnText.innerText = "Mode Créateur";
+                btnIcon.innerText = "🛠️";
+                
+                const contents = [];
+                editableElements.forEach(el => {
+                    el.setAttribute('contenteditable', 'false');
+                    contents.push(el.innerHTML);
+                });
+
+                localStorage.setItem('westfield_store_content', JSON.stringify(contents));
+
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 3000);
+            }
+        }
+    </script>
 </body>
 </html>
