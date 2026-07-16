@@ -3,492 +3,241 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Westfield | Magasin & Style</title>
+    <title>Westfield Store | Roblox</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* Variables & Thème */
+        /* THÈME WESTFIELD : ROUGE & NOIR */
         :root {
-            --bg-color: #0d0f14;
-            --card-bg: #151821;
-            --accent-color: #ff4757;
-            --accent-hover: #ff6b81;
-            --text-color: #f5f6fa;
-            --text-muted: #a4b0be;
-            --success-color: #2ed573;
+            --rouge: #ff4757;
+            --noir: #0f1115;
+            --gris: #1a1d23;
+            --blanc: #f5f6fa;
         }
 
-        /* Styles Généraux */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            scroll-behavior: smooth;
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+        }
+        
+        body { 
+            background-color: #121212; 
+            color: var(--blanc); 
+            font-family: 'Lato', sans-serif; 
         }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Animations d'entrée */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .animate {
-            animation: fadeIn 0.8s ease forwards;
-        }
-
-        /* Barre de Navigation */
-        header {
-            background-color: rgba(21, 24, 33, 0.95);
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 2px solid var(--accent-color);
-        }
-
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 5%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .logo span {
-            color: var(--accent-color);
-        }
-
-        .nav-container {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-muted);
-            font-weight: 500;
-            transition: color 0.3s, transform 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent-color);
-            transform: scale(1.05);
-        }
-
-        /* Bouton Spécial Créateur */
-        .creator-btn {
-            background-color: #3f37c9;
-            color: white;
-            border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 50px;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 15px rgba(63, 55, 201, 0.4);
-            transition: all 0.3s ease;
-        }
-
-        .creator-btn:hover {
-            background-color: #4895ef;
-            transform: translateY(-2px);
-        }
-
-        .creator-btn.active {
-            background-color: var(--success-color);
-            box-shadow: 0 4px 15px rgba(46, 213, 115, 0.4);
-        }
-
-        /* Notification d'édition */
-        #edit-toast {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: var(--success-color);
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 8px;
-            font-weight: bold;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            display: none;
-            z-index: 2000;
-            animation: fadeIn 0.3s ease;
-        }
-
-        /* Section Accueil (Hero) */
-        .hero {
-            background: linear-gradient(rgba(13, 15, 20, 0.75), rgba(13, 15, 20, 0.95)), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
-            height: 80vh;
+        /* STYLE DES SLIDES (1280x720) */
+        .slide-container {
+            width: 1280px; 
+            height: 720px;
+            background-color: var(--noir);
+            margin: 40px auto;
+            position: relative;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 1rem;
+            padding: 60px;
+            border: 2px solid var(--gris);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
         }
 
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
+        h2.slide-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 45px;
             text-transform: uppercase;
-            text-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+            border-left: 8px solid var(--rouge);
+            padding-left: 20px;
+            margin-bottom: 40px;
         }
 
-        .hero p {
-            font-size: 1.4rem;
-            margin-bottom: 2.5rem;
-            max-width: 700px;
-            color: var(--text-muted);
+        .content { 
+            display: flex; 
+            gap: 50px; 
+            align-items: center; 
+            height: 100%; 
+        }
+        
+        .text-side { 
+            flex: 1; 
+        }
+        
+        .image-side { 
+            flex: 1; 
+            height: 450px; 
+            border-radius: 15px; 
+            overflow: hidden; 
+            border: 3px solid var(--gris); 
+        }
+        
+        .image-side img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
         }
 
-        .btn {
-            display: inline-block;
-            background-color: var(--accent-color);
-            color: #fff;
-            padding: 0.9rem 2.8rem;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
-            transition: all 0.3s ease;
+        /* BOUTON MODIFIER */
+        .edit-btn {
+            position: fixed; 
+            top: 20px; 
+            right: 20px;
+            background: #2ed573; 
+            color: white; 
+            border: none;
+            padding: 15px 25px; 
+            border-radius: 50px; 
+            cursor: pointer;
+            font-weight: bold; 
+            z-index: 1000; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
-        .btn:hover {
-            background-color: var(--accent-hover);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(255, 71, 87, 0.6);
+        [contenteditable="true"] { 
+            background: rgba(255, 71, 87, 0.1); 
+            outline: 2px dashed var(--rouge); 
         }
 
-        /* Sections communes */
-        .container {
-            max-width: 1200px;
-            margin: 6rem auto;
-            padding: 0 5%;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 4rem;
-            font-size: 2.5rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .section-title span {
-            color: var(--accent-color);
-        }
-
-        /* Section Collection / Articles du Magasin */
-        .grid-jeux {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 3rem;
-        }
-
-        .game-card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s;
-            border: 1px solid #232733;
-        }
-
-        .game-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(255, 71, 87, 0.25);
-            border-color: var(--accent-color);
-        }
-
-        .game-img {
-            height: 240px;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            background-color: #1e222b;
-        }
-
-        .game-badge {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background-color: var(--accent-color);
-            color: white;
-            padding: 0.4rem 1rem;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        .game-content {
-            padding: 2rem;
-        }
-
-        .game-content h3 {
-            font-size: 1.6rem;
-            margin-bottom: 1rem;
-            color: #fff;
-        }
-
-        .game-content p {
-            color: var(--text-muted);
-            font-size: 1rem;
-            margin-bottom: 2rem;
-            min-height: 72px;
-        }
-
-        .btn-play {
-            display: inline-block;
-            background-color: var(--success-color);
-            color: #fff;
-            padding: 0.7rem 1.8rem;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: bold;
-            transition: all 0.2s;
-        }
-
-        .btn-play:hover {
-            background-color: #26af5f;
-            transform: scale(1.05);
-        }
-
-        /* Section Équipe / Crédits */
-        .grid-credits {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2.5rem;
-        }
-
-        .member-card {
-            background: var(--card-bg);
-            padding: 3rem 2rem;
-            border-radius: 16px;
-            text-align: center;
-            border: 1px solid #232733;
-            transition: all 0.3s ease;
-        }
-
-        .member-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-color);
-            box-shadow: 0 10px 25px rgba(255, 71, 87, 0.1);
-        }
-
-        .avatar {
-            width: 110px;
-            height: 110px;
-            background-color: #1e222b;
-            border-radius: 50%;
-            margin: 0 auto 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            border: 3px solid var(--accent-color);
-            box-shadow: 0 0 15px rgba(255, 71, 87, 0.3);
-        }
-
-        .member-card h4 {
-            font-size: 1.4rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .member-card p {
-            color: var(--accent-color);
-            font-weight: bold;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-        }
-
-        /* Mode d'édition visuel */
-        [contenteditable="true"] {
-            outline: 2px dashed #3f37c9;
-            padding: 2px;
-            background-color: rgba(63, 55, 201, 0.15);
-            border-radius: 4px;
-        }
-
-        /* Pied de page */
-        footer {
-            background-color: #08090d;
-            color: var(--text-muted);
-            text-align: center;
-            padding: 4rem 1rem;
-            margin-top: 8rem;
-            border-top: 1px solid #151821;
-        }
-
-        footer p {
-            margin-bottom: 0.8rem;
-        }
-
-        footer span {
-            color: var(--accent-color);
+        /* DÉCORATION */
+        .bg-blob {
+            position: absolute; 
+            width: 500px; 
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 71, 87, 0.15) 0%, transparent 70%);
+            top: -200px; 
+            right: -100px; 
+            z-index: 0;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <nav class="navbar">
-            <div class="logo" id="site-logo" data-edit="text">West<span>field</span></div>
-            <div class="nav-container">
-                <ul class="nav-links">
-                    <li><a href="#accueil">Accueil</a></li>
-                    <li><a href="#collection">Le Magasin</a></li>
-                    <li><a href="#credits">Crédits</a></li>
-                </ul>
-                <button class="creator-btn" onclick="toggleCreatorMode()">
-                    <span id="creator-icon">🛠️</span> <span id="creator-text">Mode Créateur</span>
-                </button>
-            </div>
-        </nav>
-    </header>
+<button class="edit-btn" onclick="toggleEdit()">🛠️ MODE CRÉATEUR (Modifier les textes)</button>
 
-    <section id="accueil" class="hero animate">
-        <h1 id="hero-title" data-edit="text">Découvrez Westfield Store</h1>
-        <p id="hero-desc" data-edit="text">Votre destination ultime pour des styles uniques et des collections branchées. Explorez nos nouveautés dès aujourd'hui !</p>
-        <a href="#collection" class="btn" id="hero-btn" data-edit="text">Voir les Collections</a>
-    </section>
+<div class="slide-container" id="accueil">
+    <div class="bg-blob"></div>
+    <div style="text-align: center; margin-top: 150px; z-index: 1;">
+        <h1 style="font-size: 100px; font-family: Poppins;" data-edit="text">WESTFIELD <span style="color:var(--rouge)">STORE</span></h1>
+        <p style="font-size: 30px; letter-spacing: 5px;" data-edit="text">MAGASIN DE LUXE ROBLOX</p>
+        <div style="background: var(--rouge); width: 150px; height: 5px; margin: 40px auto;"></div>
+        <p data-edit="text">Créateur : mael120410</p>
+    </div>
+</div>
 
-    <section id="collection" class="container animate">
-        <h2 class="section-title">Le <span>Magasin</span></h2>
-        <div class="grid-jeux">
-            
-            <div class="game-card">
-                <div class="game-img" style="background-image: url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80');">
-                    <span class="game-badge" data-edit="text">Populaire</span>
-                </div>
-                <div class="game-content">
-                    <h3 data-edit="text">Collection Streetwear</h3>
-                    <p data-edit="text">Des pièces modernes et confortables spécialement sélectionnées pour un style urbain affirmé au quotidien.</p>
-                    <a href="#collection" class="btn-play">Voir l'article</a>
-                </div>
-            </div>
-
-            <div class="game-card">
-                <div class="game-img" style="background-image: url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=600&q=80');">
-                    <span class="game-badge" data-edit="text">Nouveauté</span>
-                </div>
-                <div class="game-content">
-                    <h3 data-edit="text">Gamme d'Été</h3>
-                    <p data-edit="text">Des tissus légers et des couleurs vibrantes pour profiter pleinement du soleil tout en restant élégant.</p>
-                    <a href="#collection" class="btn-play">Voir l'article</a>
-                </div>
-            </div>
-
+<div class="slide-container">
+    <h2 class="slide-title" data-edit="text">Le Parking</h2>
+    <div class="content">
+        <div class="text-side">
+            <h3 style="font-size: 30px; color: var(--rouge);" data-edit="text">Une arrivée grandiose</h3>
+            <p style="font-size: 22px; margin-top: 20px;" data-edit="text">Notre parking souterrain ultra-moderne accueille vos véhicules RP dans un environnement sécurisé et lumineux.</p>
         </div>
-    </section>
-
-    <section id="credits" class="container animate">
-        <h2 class="section-title">Les <span>Crédits</span></h2>
-        <div class="grid-credits">
-            
-            <div class="member-card">
-                <div class="avatar" data-edit="text">👑</div>
-                <h4 data-edit="text">mael120410</h4>
-                <p data-edit="text">Créateur / Fondateur</p>
-            </div>
-
-            <div class="member-card">
-                <div class="avatar" data-edit="text">💻</div>
-                <h4 data-edit="text">MrEduardo</h4>
-                <p data-edit="text">Développeur Principal</p>
-            </div>
-
-            <div class="member-card">
-                <div class="avatar" data-edit="text">🔍</div>
-                <h4 data-edit="text">Bientôt</h4>
-                <p data-edit="text">Testeur Officiel</p>
-            </div>
-
+        <div class="image-side">
+            <img src="https://images.unsplash.com/photo-1506521788723-8681148d29bf?auto=format&fit=crop&w=600&q=80" alt="Parking">
         </div>
-    </section>
+    </div>
+</div>
 
-    <div id="edit-toast">Modifications enregistrées ! 👍</div>
+<div class="slide-container">
+    <h2 class="slide-title" data-edit="text">L'Entrée Principale</h2>
+    <div class="content">
+        <div class="image-side">
+            <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=600&q=80" alt="Entrée">
+        </div>
+        <div class="text-side">
+            <h3 style="font-size: 30px; color: var(--rouge);" data-edit="text">Design & Transparence</h3>
+            <p style="font-size: 22px; margin-top: 20px;" data-edit="text">L'entrée est le coeur de Westfield. Un mélange de verre et d'acier pour un look futuriste et accueillant.</p>
+        </div>
+    </div>
+</div>
 
-    <footer>
-        <p>&copy; 2026 <span>Westfield Store</span>. Tous droits réservés.</p>
-    </footer>
+<div class="slide-container">
+    <h2 class="slide-title" data-edit="text">Le Bas : Espace Shopping</h2>
+    <div class="content">
+        <div class="text-side">
+            <h3 style="font-size: 30px; color: var(--rouge);" data-edit="text">Toutes vos marques</h3>
+            <p style="font-size: 22px; margin-top: 20px;" data-edit="text">Le rez-de-chaussée propose les dernières collections Streetwear et accessoires pour votre avatar.</p>
+        </div>
+        <div class="image-side">
+            <img src="https://images.unsplash.com/photo-1441984969893-c53e1796834b?auto=format&fit=crop&w=600&q=80" alt="Rayons">
+        </div>
+    </div>
+</div>
 
-    <script>
-        let isEditMode = false;
+<div class="slide-container">
+    <h2 class="slide-title" data-edit="text">Le Haut : Salon VIP</h2>
+    <div class="content">
+        <div class="image-side">
+            <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=600&q=80" alt="VIP">
+        </div>
+        <div class="text-side">
+            <h3 style="font-size: 30px; color: var(--rouge);" data-edit="text">Exclusivité Totale</h3>
+            <p style="font-size: 22px; margin-top: 20px;" data-edit="text">L'étage supérieur est réservé aux clients d'exception. Luxe, calme et vêtements rares vous y attendent.</p>
+        </div>
+    </div>
+</div>
 
-        document.addEventListener("DOMContentLoaded", () => {
-            const savedData = localStorage.getItem('westfield_store_content');
-            if (savedData) {
-                const contents = JSON.parse(savedData);
-                const editableElements = document.querySelectorAll('[data-edit="text"]');
-                editableElements.forEach((el, index) => {
-                    if (contents[index] !== undefined) {
-                        el.innerHTML = contents[index];
-                    }
-                });
-            }
-        });
+<div class="slide-container">
+    <h2 class="slide-title" data-edit="text">L'Équipe Westfield</h2>
+    <div style="display: flex; justify-content: space-around; margin-top: 100px; text-align: center;">
+        <div>
+            <i class="fa-solid fa-crown" style="font-size: 60px; color: gold;"></i>
+            <h3 style="font-size: 35px; margin-top: 20px;" data-edit="text">mael120410</h3>
+            <p data-edit="text">Créateur & Fondateur</p>
+        </div>
+        <div>
+            <i class="fa-solid fa-code" style="font-size: 60px; color: var(--rouge);"></i>
+            <h3 style="font-size: 35px; margin-top: 20px;" data-edit="text">MrEduardo</h3>
+            <p data-edit="text">Développeur Principal</p>
+        </div>
+        <div>
+            <i class="fa-solid fa-clock" style="font-size: 60px; color: #aaa;"></i>
+            <h3 style="font-size: 35px; margin-top: 20px;" data-edit="text">Bientôt</h3>
+            <p data-edit="text">Testeur Officiel</p>
+        </div>
+    </div>
+</div>
 
-        function toggleCreatorMode() {
-            isEditMode = !isEditMode;
-            const btn = document.querySelector('.creator-btn');
-            const btnText = document.getElementById('creator-text');
-            const btnIcon = document.getElementById('creator-icon');
+<script>
+    let editMode = false;
+
+    // Charger les modifications sauvegardées
+    document.addEventListener("DOMContentLoaded", () => {
+        const savedData = localStorage.getItem('westfield_deck_content');
+        if (savedData) {
+            const contents = JSON.parse(savedData);
             const editableElements = document.querySelectorAll('[data-edit="text"]');
-            const toast = document.getElementById('edit-toast');
-
-            if (isEditMode) {
-                btn.classList.add('active');
-                btnText.innerText = "Sauvegarder";
-                btnIcon.innerText = "💾";
-                
-                editableElements.forEach(el => {
-                    el.setAttribute('contenteditable', 'true');
-                });
-            } else {
-                btn.classList.remove('active');
-                btnText.innerText = "Mode Créateur";
-                btnIcon.innerText = "🛠️";
-                
-                const contents = [];
-                editableElements.forEach(el => {
-                    el.setAttribute('contenteditable', 'false');
-                    contents.push(el.innerHTML);
-                });
-
-                localStorage.setItem('westfield_store_content', JSON.stringify(contents));
-
-                toast.style.display = 'block';
-                setTimeout(() => {
-                    toast.style.display = 'none';
-                }, 3000);
-            }
+            editableElements.forEach((el, index) => {
+                if (contents[index] !== undefined) {
+                    el.innerHTML = contents[index];
+                }
+            });
         }
-    </script>
+    });
+
+    // Activer / Désactiver le mode édition
+    function toggleEdit() {
+        editMode = !editMode;
+        const btn = document.querySelector('.edit-btn');
+        const items = document.querySelectorAll('[data-edit="text"]');
+        
+        if (editMode) {
+            items.forEach(el => el.setAttribute('contenteditable', 'true'));
+            btn.innerText = "💾 SAUVEGARDER LES TEXTES";
+            btn.style.background = "#ff4757";
+        } else {
+            const contents = [];
+            items.forEach(el => {
+                el.setAttribute('contenteditable', 'false');
+                contents.push(el.innerHTML);
+            });
+            localStorage.setItem('westfield_deck_content', JSON.stringify(contents));
+            
+            btn.innerText = "🛠️ MODE CRÉATEUR (Modifier les textes)";
+            btn.style.background = "#2ed573";
+            alert("Sauvegardé avec succès !");
+        }
+    }
+</script>
+
 </body>
 </html>
