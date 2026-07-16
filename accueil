@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Westfield | Studio de Jeux Roblox</title>
+    <style>
+        /* Styles Généraux */
+        * {
+            margin: 0;
+            padding: 0;
+            box-style: border-box;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0f1115;
+            color: #f5f6fa;
+            line-height: 1.6;
+        }
+
+        /* Barre de Navigation */
+        header {
+            background-color: #161a23;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid #ff4757;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: #ff4757;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #a4b0be;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ff4757;
+        }
+
+        /* Section Accueil (Hero) */
+        .hero {
+            background: linear-gradient(rgba(15, 17, 21, 0.8), rgba(15, 17, 21, 0.95)), url('https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            height: 75vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            padding: 0 1rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            max-width: 650px;
+            color: #ced6e0;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #ff4757;
+            color: #fff;
+            padding: 0.8rem 2.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #ff6b81;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 71, 87, 0.6);
+        }
+
+        /* Container de section */
+        .container {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 0 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-title span {
+            color: #ff4757;
+        }
+
+        /* Section Nos Jeux */
+        .grid-jeux {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .game-card {
+            background: #1e222b;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #2f3542;
+        }
+
+        .game-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(255, 71, 87, 0.2);
+            border-color: #ff4757;
+        }
+
+        .game-img {
+            height: 220px;
+            background-color: #2f3542;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .game-content {
+            padding: 1.8rem;
+        }
+
+        .game-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            color: #fff;
+        }
+
+        .game-content p {
+            color: #a4b0be;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            height: 60px;
+            overflow: hidden;
+        }
+
+        .btn-play {
+            display: inline-block;
+            background-color: #2ed573;
+            color: #fff;
+            padding: 0.6rem 1.5rem;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .btn-play:hover {
+            background-color: #26af5f;
+        }
+
+        /* Section Crédits / Équipe */
+        .grid-credits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .member-card {
+            background: #161a23;
+            padding: 2rem 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #2f3542;
+            transition: border-color 0.3s;
+        }
+
+        .member-card:hover {
+            border-color: #ff4757;
+        }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            background-color: #2f3542;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: #ff4757;
+            border: 3px solid #ff4757;
+        }
+
+        .member-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .member-card p {
+            color: #ff4757;
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Pied de page */
+        footer {
+            background-color: #0b0c10;
+            color: #a4b0be;
+            text-align: center;
+            padding: 3rem 1rem;
+            margin-top: 5rem;
+            border-top: 1px solid #1e222b;
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        footer span {
+            color: #ff4757;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="logo">West<span>field</span></div>
+            <ul class="nav-links">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#jeux">Nos Jeux</a></li>
+                <li><a href="#credits">Crédits</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="accueil" class="hero">
+        <h1>Créateurs d'univers Roblox</h1>
+        <p>Nous concevons des expériences uniques, immersives et amusantes pour la communauté Roblox. Plongez dans nos créations dès aujourd'hui !</p>
+        <a href="#jeux" class="btn">Voir les Jeux</a>
+    </section>
+
+    <section id="jeux" class="container">
+        <h2 class="section-title">Nos <span>Jeux</span></h2>
+        <div class="grid-jeux">
+            
+            <div class="game-card">
+                <div class="game-img" style="background-image: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80');"></div>
+                <div class="game-content">
+                    <h3>Westfield RP</h3>
+                    <p>Incarnez le rôle de votre choix dans une ville ultra réaliste. Conduisez, travaillez et rencontrez des amis !</p>
+                    <a href="https://www.roblox.com" target="_blank" class="btn-play">Rejoindre sur Roblox</a>
+                </div>
+            </div>
+
+            <div class="game-card">
+                <div class="game-img" style="background-image: url('https://images.unsplash.com/photo-1552820728-8b83bb6b773f?auto=format&fit=crop&w=600&q=80');"></div>
+                <div class="game-content">
+                    <h3>Survival Challenge</h3>
+                    <p>Un jeu de survie intense où l'esprit d'équipe et vos réflexes seront vos seules armes pour survivre.</p>
+                    <a href="https://www.roblox.com" target="_blank" class="btn-play">Rejoindre sur Roblox</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="credits" class="container">
+        <h2 class="section-title">Les <span>Crédits</span></h2>
+        <div class="grid-credits">
+            
+            <div class="member-card">
+                <div class="avatar">👑</div>
+                <h4>mael354</h4>
+                <p>Fondateur / Dev Principal</p>
+            </div>
+
+            <div class="member-card">
+                <div class="avatar">🛠️</div>
+                <h4>Alex</h4>
+                <p>Builder / Modeleur 3D</p>
+            </div>
+
+            <div class="member-card">
+                <div class="avatar">🎨</div>
+                <h4>Sarah</h4>
+                <p>Graphiste / UI Designer</p>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 <span>Westfield Roblox</span>. Tous droits réservés.</p>
+        <p style="font-size: 0.8rem; color: #57606f;">Ce site n'est pas affilié directement à Roblox Corporation.</p>
+    </footer>
+
+</body>
+</html>
