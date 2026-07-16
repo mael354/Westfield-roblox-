@@ -211,7 +211,7 @@
             opacity: 0.6;
         }
 
-        /* Section Collection / Articles du Magasin */
+        /* Grille des cartes */
         .grid-jeux {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
@@ -227,6 +227,7 @@
             border: 1px solid #232733;
             display: flex;
             flex-direction: column;
+            cursor: pointer; /* Indique qu'on peut cliquer pour ouvrir */
         }
 
         .game-card:hover {
@@ -256,20 +257,22 @@
             text-transform: uppercase;
         }
 
-        /* Input URL d'image masqué par défaut, visible en Mode Édition */
-        .image-url-input {
+        /* Inputs de configuration cachés (visible en Mode Créateur) */
+        .image-url-input, .game-link-input {
             display: none;
             width: 90%;
-            margin: 10px auto;
+            margin: 8px auto;
             padding: 8px;
             border-radius: 4px;
             border: 1px dashed var(--accent-color);
             background: #232733;
             color: white;
             font-size: 12px;
+            z-index: 10;
         }
 
-        body.edit-active .image-url-input {
+        body.edit-active .image-url-input, 
+        body.edit-active .game-link-input {
             display: block;
         }
 
@@ -294,21 +297,119 @@
             flex-grow: 1;
         }
 
-        .btn-play {
-            display: block;
-            text-align: center;
-            background-color: var(--accent-color);
-            color: #fff;
-            padding: 0.7rem 1.8rem;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: bold;
-            transition: all 0.2s;
+        /* PAGE DE TRANSITION / MODAL (Fenêtre de détails) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(13, 15, 20, 0.9);
+            backdrop-filter: blur(15px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
         }
 
-        .btn-play:hover {
-            background-color: var(--accent-hover);
-            transform: scale(1.03);
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-box {
+            background-color: var(--card-bg);
+            border: 2px solid var(--accent-color);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(255, 71, 87, 0.3);
+            transform: translateY(50px);
+            transition: transform 0.4s ease;
+        }
+
+        .modal-overlay.active .modal-box {
+            transform: translateY(0);
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 350px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(13, 15, 20, 0.8);
+            color: white;
+            border: none;
+            font-size: 1.8rem;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .close-modal:hover {
+            background: var(--accent-color);
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            padding: 3rem;
+        }
+
+        .modal-title {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .modal-desc {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .btn-join {
+            flex-grow: 1;
+            text-align: center;
+            background-color: var(--success-color);
+            color: white;
+            padding: 1.1rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(46, 213, 115, 0.4);
+            transition: all 0.3s;
+        }
+
+        .btn-join:hover {
+            background-color: #26af5f;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(46, 213, 115, 0.6);
         }
 
         /* Section Équipe / Crédits */
@@ -417,56 +518,71 @@
         <h2 class="section-title">Visite du <span>Magasin</span></h2>
         <div class="grid-jeux">
             
-            <div class="game-card">
-                <div class="game-img" id="img-card-1" style="background-image: url('uploaded:image_a18b95.png');">
+            <div class="game-card" onclick="openGameModal(1, event)">
+                <div class="game-img" id="img-card-1" style="background-image: url('image_a18b95.png');">
                     <span class="game-badge" data-edit="text">Niveau -1</span>
                 </div>
-                <input type="text" class="image-url-input" id="url-card-1" placeholder="Coller ici l'URL de votre image pour le Parking" oninput="changeCardImage(1, this.value)">
+                <input type="text" class="image-url-input" id="url-card-1" placeholder="Lien image Parking" oninput="changeCardImage(1, this.value)" onclick="event.stopPropagation()">
+                <input type="text" class="game-link-input" id="link-card-1" placeholder="Lien du jeu Roblox" onclick="event.stopPropagation()">
                 <div class="game-content">
-                    <h3 data-edit="text">Le Parking</h3>
-                    <p data-edit="text">Un parking souterrain moderne et sécurisé, idéal pour garer vos véhicules RP à votre arrivée chez Westfield.</p>
-                    <a href="#collection" class="btn-play" data-edit="text">Visiter le Parking</a>
+                    <h3 id="title-card-1" data-edit="text">Le Parking</h3>
+                    <p id="desc-card-1" data-edit="text">Un parking souterrain moderne et sécurisé, idéal pour garer vos véhicules RP à votre arrivée chez Westfield.</p>
                 </div>
             </div>
 
-            <div class="game-card">
-                <div class="game-img" id="img-card-2" style="background-image: url('uploaded:image_a1840e.png');">
+            <div class="game-card" onclick="openGameModal(2, event)">
+                <div class="game-img" id="img-card-2" style="background-image: url('image_a18b95.png');">
                     <span class="game-badge" data-edit="text">Accueil</span>
                 </div>
-                <input type="text" class="image-url-input" id="url-card-2" placeholder="Coller ici l'URL de votre image pour l'Entrée" oninput="changeCardImage(2, this.value)">
+                <input type="text" class="image-url-input" id="url-card-2" placeholder="Lien image Entrée" oninput="changeCardImage(2, this.value)" onclick="event.stopPropagation()">
+                <input type="text" class="game-link-input" id="link-card-2" placeholder="Lien du jeu Roblox" onclick="event.stopPropagation()">
                 <div class="game-content">
-                    <h3 data-edit="text">L'Entrée Principale</h3>
-                    <p data-edit="text">Un design sophistiqué qui vous accueille avec style. Passez les portes et plongez dans l'univers Westfield.</p>
-                    <a href="#collection" class="btn-play" data-edit="text">Entrer dans le Hall</a>
+                    <h3 id="title-card-2" data-edit="text">L'Entrée Principale</h3>
+                    <p id="desc-card-2" data-edit="text">Un design sophistiqué qui vous accueille avec style. Passez les portes et plongez dans l'univers Westfield.</p>
                 </div>
             </div>
 
-            <div class="game-card">
-                <div class="game-img" id="img-card-3" style="background-image: url('uploaded:image_a184af.png');">
+            <div class="game-card" onclick="openGameModal(3, event)">
+                <div class="game-img" id="img-card-3" style="background-image: url('image_a18ca6.png');">
                     <span class="game-badge" data-edit="text">Rez-de-chaussée</span>
                 </div>
-                <input type="text" class="image-url-input" id="url-card-3" placeholder="Coller ici l'URL de votre image pour le Bas" oninput="changeCardImage(3, this.value)">
+                <input type="text" class="image-url-input" id="url-card-3" placeholder="Lien image Le Bas" oninput="changeCardImage(3, this.value)" onclick="event.stopPropagation()">
+                <input type="text" class="game-link-input" id="link-card-3" placeholder="Lien du jeu Roblox" onclick="event.stopPropagation()">
                 <div class="game-content">
-                    <h3 data-edit="text">Le Bas (Espace Shopping)</h3>
-                    <p data-edit="text">Découvrez nos rayons de vêtements streetwear et nos collections tendance de prêt-à-porter pour renouveler votre avatar.</p>
-                    <a href="#collection" class="btn-play" data-edit="text">Faire son Shopping</a>
+                    <h3 id="title-card-3" data-edit="text">Le Bas (Espace Shopping)</h3>
+                    <p id="desc-card-3" data-edit="text">Découvrez nos rayons de vêtements streetwear et nos collections tendance de prêt-à-porter pour renouveler votre avatar.</p>
                 </div>
             </div>
 
-            <div class="game-card">
-                <div class="game-img" id="img-card-4" style="background-image: url('uploaded:image_a18ca6.png');">
+            <div class="game-card" onclick="openGameModal(4, event)">
+                <div class="game-img" id="img-card-4" style="background-image: url('image_a18ca6.png');">
                     <span class="game-badge" data-edit="text">Étage VIP</span>
                 </div>
-                <input type="text" class="image-url-input" id="url-card-4" placeholder="Coller ici l'URL de votre image pour le Haut" oninput="changeCardImage(4, this.value)">
+                <input type="text" class="image-url-input" id="url-card-4" placeholder="Lien image Le Haut" oninput="changeCardImage(4, this.value)" onclick="event.stopPropagation()">
+                <input type="text" class="game-link-input" id="link-card-4" placeholder="Lien du jeu Roblox" onclick="event.stopPropagation()">
                 <div class="game-content">
-                    <h3 data-edit="text">Le Haut (Salon Privé)</h3>
-                    <p data-edit="text">Accédez au prestigieux salon VIP à l'étage pour dénicher des tenues exclusives et profiter d'un moment d'élégance totale.</p>
-                    <a href="#collection" class="btn-play" data-edit="text">Accéder à l'Étage</a>
+                    <h3 id="title-card-4" data-edit="text">Le Haut (Salon Privé)</h3>
+                    <p id="desc-card-4" data-edit="text">Accédez au prestigieux salon VIP à l'étage pour dénicher des tenues exclusives et profiter d'un moment d'élégance totale.</p>
                 </div>
             </div>
 
         </div>
     </section>
+
+    <div class="modal-overlay" id="game-modal" onclick="closeGameModal()">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <div class="modal-image" id="modal-img">
+                <button class="close-modal" onclick="closeGameModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h2 class="modal-title" id="modal-title">Titre de la zone</h2>
+                <p class="modal-desc" id="modal-desc">Description détaillée de ce qui a été créé par l'équipe.</p>
+                <div class="modal-footer">
+                    <a href="https://www.roblox.com" target="_blank" class="btn-join" id="modal-join-btn">🎮 Rejoindre le jeu</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="transition-divider"></div>
 
@@ -504,7 +620,7 @@
     <script>
         let isEditMode = false;
 
-        // Charger tout le contenu sauvegardé (textes ET images)
+        // Charger tout le contenu sauvegardé
         document.addEventListener("DOMContentLoaded", () => {
             const savedTexts = localStorage.getItem('westfield_store_content');
             if (savedTexts) {
@@ -527,13 +643,55 @@
                     }
                 }
             }
+
+            const savedLinks = localStorage.getItem('westfield_store_links');
+            if (savedLinks) {
+                const links = JSON.parse(savedLinks);
+                for (let i = 1; i <= 4; i++) {
+                    if (links[i]) {
+                        document.getElementById(`link-card-${i}`).value = links[i];
+                    }
+                }
+            }
         });
 
-        // Fonction pour mettre à jour l'image en direct pendant qu'on tape l'adresse
+        // Met à jour l'image en direct
         function changeCardImage(cardNumber, url) {
             if (url.trim() !== "") {
                 document.getElementById(`img-card-${cardNumber}`).style.backgroundImage = `url('${url}')`;
             }
+        }
+
+        // FONCTIONS POUR LA PAGE DE TRANSITION MODAL
+        function openGameModal(cardNumber, event) {
+            // Ne pas ouvrir la fenêtre si on est en train de modifier le site
+            if (isEditMode) return;
+
+            const title = document.getElementById(`title-card-${cardNumber}`).innerText;
+            const desc = document.getElementById(`desc-card-${cardNumber}`).innerText;
+            
+            // Récupère l'image de fond
+            const imgStyle = document.getElementById(`img-card-${cardNumber}`).style.backgroundImage;
+            const imgUrl = imgStyle.replace('url("', '').replace('")', '');
+
+            // Récupère le lien personnalisé Roblox
+            let gameLink = document.getElementById(`link-card-${cardNumber}`).value;
+            if (!gameLink || gameLink.trim() === "") {
+                gameLink = "https://www.roblox.com"; // Lien par défaut
+            }
+
+            // Remplit le Modal
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-desc').innerText = desc;
+            document.getElementById('modal-img').style.backgroundImage = `url('${imgUrl}')`;
+            document.getElementById('modal-join-btn').href = gameLink;
+
+            // Ouvre le modal avec animation
+            document.getElementById('game-modal').classList.add('active');
+        }
+
+        function closeGameModal() {
+            document.getElementById('game-modal').classList.remove('active');
         }
 
         // Activer / Désactiver le Mode Créateur
@@ -579,7 +737,16 @@
                 }
                 localStorage.setItem('westfield_store_images', JSON.stringify(images));
 
-                // Afficher l'alerte verte en bas de l'écran
+                // Sauvegarder les liens Roblox
+                const links = {};
+                for (let i = 1; i <= 4; i++) {
+                    const linkVal = document.getElementById(`link-card-${i}`).value;
+                    if (linkVal.trim() !== "") {
+                        links[i] = linkVal;
+                    }
+                }
+                localStorage.setItem('westfield_store_links', JSON.stringify(links));
+
                 toast.style.display = 'block';
                 setTimeout(() => {
                     toast.style.display = 'none';
